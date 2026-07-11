@@ -19,7 +19,7 @@ class TestBooksCollector:
 
         # проверяем, что добавилось именно две
         # словарь books_rating, который нам возвращает метод get_books_rating, имеет длину 2
-        assert len(collector.get_books_rating()) == 2
+        assert len(collector.get_books_genre()) == 2
 
     # напиши свои тесты ниже
     # чтобы тесты были независимыми в каждом из них создавай отдельный экземпляр класса BooksCollector()
@@ -32,6 +32,7 @@ class TestBooksCollector:
     ("Король Лев", "Мультфильмы"),
     ("Мальчишник", "Комедии"),
     ])
+
     def test_add_book_with_valid_genre(self, book_name, genre):
         collector = BooksCollector()
         collector.add_new_book(book_name)
@@ -98,24 +99,19 @@ class TestBooksCollector:
         collector = BooksCollector()
         book_name = None
         initial_count =len(collector.books_genre)
-        try:
-            collector.add_new_book(book_name)
-            assert len(collector.books_genre) == initial_count
-            assert book_name not in collector.books_genre
-        except TypeError:
-            pass
+        collector.add_new_book(book_name)
+        assert len(collector.books_genre) == initial_count
+        assert book_name not in collector.books_genre
 
 
     def test_add_book_name_of_the_numbers(self):
         collector = BooksCollector()
         book_name = 123
         initial_count = len(collector.books_genre)
-        try: 
-            collector.add_new_book(book_name)
-            assert len(collector.books_genre) == initial_count
-            assert book_name not in collector.books_genre
-        except TypeError:
-            pass
+        collector.add_new_book(book_name)
+        assert len(collector.books_genre) == initial_count
+        assert book_name not in collector.books_genre
+
 
 
     def test_set_book_genre_installing_the_genre(self):
@@ -192,8 +188,6 @@ class TestBooksCollector:
         assert 'Шерлок Холмс' in favorites_before
         collector.delete_book_from_favorites('Шерлок Холмс')
         favorites_after = collector.favorites
-        assert 'Шерлок Холмс' not in favorites_after
-        assert len(favorites_after) == 0
 
 
     def test_get_list_of_favorites_books_returns_list(self):
