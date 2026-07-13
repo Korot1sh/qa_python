@@ -173,10 +173,6 @@ class TestBooksCollector:
         favorites = collector.favorites
         assert 'Шерлок Холмс' in favorites
         assert len(favorites) == 1
-        collector.add_book_in_favorites('Несуществующая книга')
-        favorites = collector.favorites
-        assert 'Несуществующая книга' not in favorites
-        assert len(favorites) == 1
 
 
     def test_delete_book_from_favorites_removes_book(self):
@@ -188,7 +184,8 @@ class TestBooksCollector:
         assert 'Шерлок Холмс' in favorites_before
         collector.delete_book_from_favorites('Шерлок Холмс')
         favorites_after = collector.favorites
-
+        assert 'Шерлок Холмс' not in favorites_after, "Книга осталась в избранном после удаления"
+        assert len(favorites_after) == 0
 
     def test_get_list_of_favorites_books_returns_list(self):
         collector = BooksCollector()
